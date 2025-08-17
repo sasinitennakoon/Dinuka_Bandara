@@ -1,0 +1,2 @@
+.mp4 filter=lfs diff=lfs merge=lfs -text
+D:/dinuka-portfolio/public/web[[:space:]]cover[[:space:]]new.mp4 filter=lfs diff=lfs merge=lfs -text
