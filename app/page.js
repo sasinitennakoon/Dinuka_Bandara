@@ -18,6 +18,7 @@ export default function Home() {
   const isInView = useInView(aboutRef, { margin: '-100px' });
   const imageControls = useAnimation();
   const textControls = useAnimation();
+    const [mounted, setMounted] = useState(false);
   
 
   const containerVariants = {
@@ -111,6 +112,12 @@ useEffect(() => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // Prevent server-side rendering issues
 
 
 
