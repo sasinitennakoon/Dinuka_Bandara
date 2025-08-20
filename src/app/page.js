@@ -18,8 +18,8 @@ export default function Home() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [navVisible, setNavVisible] = useState(true);
   const navRef = useRef(null);
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const [pathname, setPathname] = useState('');
+  const [searchParams, setSearchParams] = useState(null);
   const aboutRef = useRef(null);
   const isInView = useInView(aboutRef, { margin: '-100px' });
   const imageControls = useAnimation();
@@ -69,7 +69,10 @@ export default function Home() {
   },
 ];
 
-
+useEffect(() => {
+  setPathname(window.location.pathname); // or usePathname() inside useEffect if needed
+  setSearchParams(new URLSearchParams(window.location.search));
+}, []);
 
   useEffect(() => {
   const hasVisited = sessionStorage.getItem('hasVisited');
