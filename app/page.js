@@ -120,7 +120,7 @@ useEffect(() => {
 
   return (
     <main className="relative min-h-screen text-white">
-      {/* Splash / Welcome Screen 
+      {/* Splash / Welcome Screen */}
       {showWelcome ? (
         <div
           className={`fixed inset-0 flex items-center justify-center bg-gradient-to-b from-[#0D1321] via-[#1D2A41] to-[#263B5E] z-50 transition-opacity duration-800 ease-in-out ${fadeClass}`}
@@ -135,7 +135,7 @@ useEffect(() => {
         </div>
       ) : (
         <>
-          {/* Navbar *
+          
         <nav
             ref={navRef}
             className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-full shadow-md opacity-0 transition-opacity duration-500 ease-in-out ${
@@ -151,12 +151,12 @@ useEffect(() => {
             }}
           >
           <div className="flex justify-between items-center px-8 py-4">
-            {/* Logo/Brand Name *
+            
                       <div className="w-100">
                         <Image src="/Signature -dinuka.png" alt="Signature" width={120} height={30} />
                       </div>
 
-            {/* Desktop Navigation *
+           
             <div className="hidden md:flex space-x-8 text-base font-medium">
               <a href="#home" className="text-[#E7E7E7] hover:text-gray-300 transition-colors px-4 py-2 rounded-full hover:bg-white/10 font-[Inter]">HOME</a>
               <a href="#about" className="text-[#E7E7E7] hover:text-gray-300 transition-colors px-4 py-2 rounded-full hover:bg-white/10 font-[Inter]">ABOUT</a>
@@ -165,7 +165,7 @@ useEffect(() => {
               <a href="https://wa.me/94716295618" target="_blank" rel="noopener noreferrer" className="text-[#E7E7E7] hover:text-gray-300 transition-colors px-4 py-2 rounded-full hover:bg-white/10 font-[Inter]">CONTACT</a>
             </div>
 
-            {/* Mobile Menu Button *
+            
             <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -176,7 +176,7 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Mobile Menu *
+         
           {mobileMenuOpen && (
             <div 
               className="md:hidden mt-2 py-4 px-6 rounded-2xl"
@@ -195,7 +195,11 @@ useEffect(() => {
             </div>
           )}
         </nav>
-
+</>
+      )}
+    </main>
+    );
+  }
           {/* Hero Section *
           
      <section id="home" className="relative w-full h-screen pt-20 overflow-hidden">
@@ -529,7 +533,6 @@ useEffect(() => {
 
 
 
-    </main>
     
-  );
-}
+    
+
