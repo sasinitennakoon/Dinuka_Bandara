@@ -14,7 +14,7 @@ import {
 
 export default function BlogDetailPage({ params }) {
   const router = useRouter();
-  const { slug } = use(params); // ✅ unwrap params promise
+  const { slug } = params; // ✅ unwrap params promise
 
   const postIndex = blogPosts.findIndex((post) => post.slug === slug);
   const post = blogPosts[postIndex];

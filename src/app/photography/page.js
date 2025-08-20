@@ -58,23 +58,23 @@ export default function PhotographyPage() {
     }
   };
 
-  // Handle keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!lightboxOpen) return;
-      
-      if (e.key === 'Escape') {
-        closeLightbox();
-      } else if (e.key === 'ArrowLeft') {
-        navigateImages('prev');
-      } else if (e.key === 'ArrowRight') {
-        navigateImages('next');
-      }
-    };
+  const handleKeyDown = (e) => {
+    if (!lightboxOpen) return;
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxOpen, currentImageIndex, currentGallery]);
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === 'ArrowLeft') {
+      navigateImages('prev');
+    } else if (e.key === 'ArrowRight') {
+      navigateImages('next');
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+  return () => window.removeEventListener('keydown', handleKeyDown);
+}, [lightboxOpen, currentImageIndex, currentGallery, closeLightbox, navigateImages]);
+
 
   // Navbar scroll visibility
   useEffect(() => {
@@ -405,7 +405,7 @@ const chipItem = {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-lg md:text-2xl text-gray-700 font-[cormorant_garamond]"
           >
-            A selection of moments I've captured, from portraits to landscape, telling stories through lights and perspectives.
+            A selection of moments I&apos;'ve captured, from portraits to landscape, telling stories through lights and perspectives.
           </motion.p>
         </motion.div>
 

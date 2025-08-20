@@ -297,7 +297,7 @@ export default function Home() {
             viewport={{ once: false, amount: 0.2 }}
           >
             <h1 className="text-4xl md:text-5xl font-bold text-[#0D1321] mb-12 font-[cormorant_garamonnd]">
-              I'm Dinuka Gunawardana
+              I&apos;'m Dinuka Gunawardana
             </h1>
             <div className="space-y-6">
               <p className="text-xl text-[#0D1321] leading-relaxed font-[DM_Sans]">
@@ -418,7 +418,7 @@ export default function Home() {
           {/* Services Section */}
            <section id="services" className="py-20 px-6 md:px-16 bg-[#E7E7E7] text-black">
       <h1 className="text-6xl font-bold mb-4 font-[playfair_display] text-[#0D1321] text-center">
-        Here\'s What I Create
+        Here&apos;'s What I Create
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
         {services.map((service, index) => (
@@ -485,7 +485,7 @@ export default function Home() {
         className="object-contain"
       />
       <p className="text-[#FFFBEE] font-[DM_Sans]">
-        Let’s connect and create something amazing together.
+        Let&apos;’s connect and create something amazing together.
       </p>
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
