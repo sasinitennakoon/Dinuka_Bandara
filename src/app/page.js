@@ -225,7 +225,7 @@ export default function Home() {
               muted
               loop
             >
-              <source src="/web cover new.mp4" type="video/mp4" />
+              <source src="/web cover new11.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             {/* Gradient Overlay */}
