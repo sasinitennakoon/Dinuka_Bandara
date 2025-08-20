@@ -29,9 +29,7 @@ export default function BlogDetailPage({ params }) {
   const previousPost = blogPosts[postIndex - 1];
   const nextPost = blogPosts[postIndex + 1];
 
-  // If post doesn't exist, render fallback
-  if (!post) return <div className="text-center mt-20">Blog not found.</div>;
-
+  
   // Remaining hooks can be used safely
   const wordCount = post.content?.split(' ').length || 0;
   const readingTime = Math.ceil(wordCount / 200);
@@ -55,6 +53,9 @@ export default function BlogDetailPage({ params }) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextPost, previousPost, router]);
+
+  // If post doesn't exist, render fallback
+  if (!post) return <div className="text-center mt-20">Blog not found.</div>;
 
   return (
     <>
