@@ -4,24 +4,20 @@ const nextConfig = {
   trailingSlash: false,
   images: {
     formats: ['image/webp', 'image/avif'],
-    domains: [],
   },
   
-  // ✅ ADD THIS - Force new build ID to bust cache
+  // ✅ Add this for cache busting
   generateBuildId: async () => {
-    return 'build-' + Date.now();
+    return `build-${Date.now()}`;
   },
   
-  // Webpack configuration
   webpack: (config, { isServer, dev }) => {
     if (!dev && !isServer) {
       config.output.chunkLoading = false;
       config.output.workerChunkLoading = false;
       
-      // ✅ ADD THIS - Force chunk names to change
-      config.output.chunkFilename = dev ?
-        'static/chunks/[name].js' :
-        'static/chunks/[name].[contenthash].js';
+      // ✅ Force unique chunk names
+      config.output.chunkFilename = `static/chunks/[name].[contenthash]-${Date.now()}.js`;
     }
     return config;
   },
