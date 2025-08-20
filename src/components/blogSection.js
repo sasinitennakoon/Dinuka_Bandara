@@ -52,24 +52,25 @@ export default function BlogSection() {
   const animationId = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+  // ✅ CORRECT - Add curly braces
+useEffect(() => {
+  const container = containerRef.current;
+  if (!container) return;
 
-    const scroll = () => {
-      if (!isPaused) {
-        scrollAmount.current += 0.5;
-        if (scrollAmount.current >= container.scrollWidth / 2) {
-          scrollAmount.current = 0;
-        }
-        container.scrollLeft = scrollAmount.current;
+  const scroll = () => {
+    if (!isPaused) {
+      scrollAmount.current += 0.5;
+      if (scrollAmount.current >= container.scrollWidth / 2) {
+        scrollAmount.current = 0;
       }
-      animationId.current = requestAnimationFrame(scroll);
-    };
-
+      container.scrollLeft = scrollAmount.current;
+    }
     animationId.current = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(animationId.current);
-  }, [isPaused]);
+  };
+
+  animationId.current = requestAnimationFrame(scroll);
+  return () => cancelAnimationFrame(animationId.current);
+}, [isPaused]);
 
   return (
     <section
