@@ -1,19 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Remove swcMinify (it's enabled by default in Next.js 15+)
   trailingSlash: false,
   images: {
     formats: ['image/webp', 'image/avif'],
     domains: [],
   },
   
-  // Simplified webpack configuration to fix chunk loading
+  // ✅ ADD THIS - Force new build ID to bust cache
+  generateBuildId: async () => {
+    return 'build-' + Date.now();
+  },
+  
+  // Webpack configuration
   webpack: (config, { isServer, dev }) => {
     if (!dev && !isServer) {
-      // This is the key fix for Vercel chunk loading issues
       config.output.chunkLoading = false;
       config.output.workerChunkLoading = false;
+      
+      // ✅ ADD THIS - Force chunk names to change
+      config.output.chunkFilename = dev ?
+        'static/chunks/[name].js' :
+        'static/chunks/[name].[contenthash].js';
     }
     return config;
   },
