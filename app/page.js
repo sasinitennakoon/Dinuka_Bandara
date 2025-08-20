@@ -119,10 +119,10 @@ useEffect(() => {
       {/* Splash / Welcome Screen */}
       {showWelcome ? (
         <div
-          className={`fixed inset-0 flex items-center justify-center bg-gradient-to-b from-[#0D1321] via-[#1D2A41] to-[#263B5E] z-50 transition-opacity duration-800 ease-in-out ${fadeClass}`}
+          className={`fixed inset-0 flex items-center justify-center bg-black transition-opacity duration-800 ease-in-out ${fadeClass}`}
         >
           <Image
-            src="/Signature -dinuka.png"
+            src="/signature-dinuka.png"
             alt="Client Logo"
             width={500}
             height={500}
