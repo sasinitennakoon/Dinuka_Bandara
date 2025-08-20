@@ -405,7 +405,7 @@ const chipItem = {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-lg md:text-2xl text-gray-700 font-[cormorant_garamond]"
           >
-            A selection of moments I&apos;'ve captured, from portraits to landscape, telling stories through lights and perspectives.
+            A selection of moments I&apos;ve captured, from portraits to landscape, telling stories through lights and perspectives.
           </motion.p>
         </motion.div>
 

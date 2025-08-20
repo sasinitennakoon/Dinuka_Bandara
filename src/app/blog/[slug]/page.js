@@ -14,37 +14,35 @@ import {
 
 export default function BlogDetailPage({ params }) {
   const router = useRouter();
-  const { slug } = params; // ✅ unwrap params promise
+  const { slug } = params;
 
-  const postIndex = blogPosts.findIndex((post) => post.slug === slug);
-  const post = blogPosts[postIndex];
-
-  if (!post) return <div className="text-center mt-20">Blog not found.</div>;
-
-  const previousPost = blogPosts[postIndex - 1];
-  const nextPost = blogPosts[postIndex + 1];
-
+  // Hooks must always come first
   const navRef = useRef(null);
   const [showWelcome, setShowWelcome] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navVisible, setNavVisible] = useState(true);
   const [showArrows, setShowArrows] = useState(false);
 
+  // Now you can compute post data
+  const postIndex = blogPosts.findIndex((post) => post.slug === slug);
+  const post = blogPosts[postIndex];
+  const previousPost = blogPosts[postIndex - 1];
+  const nextPost = blogPosts[postIndex + 1];
+
+  // If post doesn't exist, render fallback
+  if (!post) return <div className="text-center mt-20">Blog not found.</div>;
+
+  // Remaining hooks can be used safely
   const wordCount = post.content?.split(' ').length || 0;
   const readingTime = Math.ceil(wordCount / 200);
 
   useEffect(() => {
-  const handleScroll = () => {
-    const scrollY = window.scrollY;
-
-    // Show arrows only if the scroll is more than 150px (adjust as needed)
-    setShowArrows(scrollY > 150);
-  };
-
-  window.addEventListener('scroll', handleScroll);
-  return () => window.removeEventListener('scroll', handleScroll);
-}, []);
-
+    const handleScroll = () => {
+      setShowArrows(window.scrollY > 150);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
