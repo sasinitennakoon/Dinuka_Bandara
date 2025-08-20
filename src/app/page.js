@@ -81,17 +81,21 @@ export default function Home() {
   }, []);
 
   // Scroll logic for navbar visibility
-  useEffect(() => {
-    if (showWelcome) return;
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 100) setNavVisible(false);
-      else if (currentScrollY < lastScrollY) setNavVisible(true);
-      setLastScrollY(currentScrollY);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY, showWelcome]);
+  const lastScrollYRef = useRef(0);
+
+useEffect(() => {
+  if (showWelcome) return;
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) setNavVisible(false);
+    else if (currentScrollY < lastScrollYRef.current) setNavVisible(true);
+    lastScrollYRef.current = currentScrollY;
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  return () => window.removeEventListener('scroll', handleScroll);
+}, [showWelcome]);
 
   // Scroll to hash section safely
   useEffect(() => {
