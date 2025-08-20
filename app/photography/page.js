@@ -27,8 +27,8 @@ export default function PhotographyPage() {
     '/photo/commercial16.jpg', '/photo/commercial7.jpg'
   ];
   const documentary = [
-    '/photo/doc1.jpg','/photo/doc2.jpg','/photo/doc3.jpeg', '/photo/doc4.jpg', '/photo/doc5.jpg','/photo/doc6.jpg',
-    '/photo/doc7.jpg','/photo/doc8.jpg','/photo/doc9.jpg','/photo/doc10.jpg','/photo/doc11.jpg','/photo/doc13.jpg','/photo/doc14.jpg'
+    '/photo/doc1.jpg','/photo/doc3.jpg','/photo/doc2.jpeg', '/photo/doc4.jpg', '/photo/doc5.jpg','/photo/doc6.jpg',
+    '/photo/doc7.jpg','/photo/doc8.jpg','/photo/doc9.jpg','/photo/doc10.jpg','/photo/doc11.jpg','/photo/doc13.jpg','/photo/doc12.jpg'
   ];
 
   const openLightbox = useCallback((gallery, index) => {

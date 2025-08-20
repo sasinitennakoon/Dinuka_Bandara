@@ -1,8 +1,4 @@
 'use client';
-
-import React from "react";
-
-
 import { useEffect, useState, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import Image from 'next/image';
@@ -135,7 +131,7 @@ useEffect(() => {
         </div>
       ) : (
         <>
-          
+          {/* Navbar */}
         <nav
             ref={navRef}
             className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-full shadow-md opacity-0 transition-opacity duration-500 ease-in-out ${
@@ -151,12 +147,12 @@ useEffect(() => {
             }}
           >
           <div className="flex justify-between items-center px-8 py-4">
-            
+            {/* Logo/Brand Name */}
                       <div className="w-100">
                         <Image src="/Signature -dinuka.png" alt="Signature" width={120} height={30} />
                       </div>
 
-           
+            {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8 text-base font-medium">
               <a href="#home" className="text-[#E7E7E7] hover:text-gray-300 transition-colors px-4 py-2 rounded-full hover:bg-white/10 font-[Inter]">HOME</a>
               <a href="#about" className="text-[#E7E7E7] hover:text-gray-300 transition-colors px-4 py-2 rounded-full hover:bg-white/10 font-[Inter]">ABOUT</a>
@@ -165,7 +161,7 @@ useEffect(() => {
               <a href="https://wa.me/94716295618" target="_blank" rel="noopener noreferrer" className="text-[#E7E7E7] hover:text-gray-300 transition-colors px-4 py-2 rounded-full hover:bg-white/10 font-[Inter]">CONTACT</a>
             </div>
 
-            
+            {/* Mobile Menu Button */}
             <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -176,7 +172,7 @@ useEffect(() => {
             </div>
           </div>
 
-         
+          {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div 
               className="md:hidden mt-2 py-4 px-6 rounded-2xl"
@@ -195,15 +191,11 @@ useEffect(() => {
             </div>
           )}
         </nav>
-</>
-      )}
-    </main>
-    );
-  }
-          {/* Hero Section *
+
+          {/* Hero Section */}
           
      <section id="home" className="relative w-full h-screen pt-20 overflow-hidden">
-          {/* Background Video *
+          {/* Background Video */}
           <div className="absolute inset-0 z-0">
             <video
               className="w-full h-full object-cover"
@@ -214,15 +206,15 @@ useEffect(() => {
               <source src="/Web Cover New11.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            {/* Gradient Overlay 
-            {/*<div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />*
+            {/* Gradient Overlay */}
+            {/*<div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />*/}
           </div>
 
-          {/* Content Container *
+          {/* Content Container */}
           <div className="relative z-10 h-[90vh] flex items-center">
             <div className="container mx-auto px-6 md:px-16">
               <div className="max-w-2xl">
-                {/* First Line - Welcome to My *
+                {/* First Line - Welcome to My */}
                 <h1 
                   className="text-3xl md:text-6xl font-light text-[#E7E7E7] font-[playfair_display] mb-2 leading-tight whitespace-nowrap
                             opacity-0 animate-[fadeIn_1s_ease-in-out_0.3s_forwards] "
@@ -236,7 +228,7 @@ useEffect(() => {
                   CREATIVE WORLD!
                 </h2>
                 
-                {/* Download Button *
+                {/* Download Button */}
                 <a
                   href="/Dinuka_CV.pdf"
                   download
@@ -255,7 +247,7 @@ useEffect(() => {
          <section id="about" ref={aboutRef} className="py-20 px-6 md:px-16 bg-[#E7E7E7] text-black">
     <div className="container mx-auto">
       <div className="flex flex-col lg:flex-row items-start gap-8">
-        {/* Image From Left *
+        {/* Image From Left */}
         <div className="overflow-hidden lg:w-1/3 w-full flex justify-center pt-30">
           <motion.div
             initial={{ x: -100, opacity: 0 }}
@@ -274,7 +266,7 @@ useEffect(() => {
           </motion.div>
         </div>
 
-        {/* Text From Right *
+        {/* Text From Right */}
         <div className="overflow-hidden lg:w-2/3 w-full space-y-8 p-6">
           <motion.div
             initial={{ x: 100, opacity: 0 }}
@@ -353,7 +345,7 @@ useEffect(() => {
 
       </div>
     </section>
- {/* Skilled Software Logos Section *
+ {/* Skilled Software Logos Section */}
           <section className="py-12 bg-[#FFFBEE]">
   <div className="max-w-6xl mx-auto px-2 md:px-8 text-center mb-8">
     <h2 className="text-4xl font-bold font-[cormorant_garamond] text-[#0D1321]">
@@ -401,7 +393,7 @@ useEffect(() => {
 
 
 
-          {/* Services Section *
+          {/* Services Section */}
            <section id="services" className="py-20 px-6 md:px-16 bg-[#E7E7E7] text-black">
       <h1 className="text-6xl font-bold mb-4 font-[playfair_display] text-[#0D1321] text-center">
         Here&apos;s What I Create
@@ -441,14 +433,14 @@ useEffect(() => {
     </section>
 
           
-          {/* Clients*
+          {/* Clients*/}
           <section id="clients" className="py-20 px-2 md:px-4 bg-[#FFFBEE] text-[#0D1321]">
               <h2 className="text-5xl font-semibold mb-10 text-center font-[cormorant_garamond]">People Who Trusted My Vision</h2>
                   <AutoScrollingClients />
           </section>
 
 
-          {/* Blog Section *
+          {/* Blog Section */}
           <section id="blog" className="py-20 px-0 bg-[#E7E7E7] text-[#0D1321]">
             <h2 className="text-6xl font-semibold mb-4 font-[cormorant_garamond] text-center">Life Behind the Lens</h2>
             <BlogSection />
@@ -461,7 +453,7 @@ useEffect(() => {
         {!showWelcome && (
    <footer className="bg-[#0D1321] text-white py-12 w-full">
   <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center md:items-start gap-10">
-    {/* Left: Logo + Text + Back to Top *
+    {/* Left: Logo + Text + Back to Top */}
     <div className="flex flex-col items-center md:items-start space-y-4 max-w-xs text-center md:text-left">
       <Image
         src="/Signature -dinuka.png"
@@ -481,7 +473,7 @@ useEffect(() => {
       </button>
     </div>
 
-    {/* Middle: Navigation (aligned right on md+) *
+    {/* Middle: Navigation (aligned right on md+) */}
     <div className="w-full md:w-auto">
       <div className="flex flex-wrap justify-center md:justify-end gap-6 text-[#FFFBEE] font-[DM_Sans] text-lg">
         <Link href="/#home" className="hover:underline">
@@ -508,10 +500,10 @@ useEffect(() => {
     </div>
   </div>
 
-  {/* Divider line *
+  {/* Divider line */}
   <hr className="border-[#FFFBEE] opacity-30 mt-10 max-w-7xl mx-auto px-6" />
 
-  {/* Address | Email | Phone line *
+  {/* Address | Email | Phone line */}
   <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-center gap-4 text-[#FFFBEE] font-[DM_Sans] mt-6 text-center text-sm">
     <span>Nawala, Colombo, Sri Lanka</span>
     <span className="hidden sm:inline">|</span>
@@ -520,19 +512,20 @@ useEffect(() => {
     <span>+94 71 629 5618</span>
   </div>
 
-  {/* Divider line *
+  {/* Divider line */}
   <hr className="border-[#FFFBEE] opacity-30 mt-6 max-w-7xl mx-auto px-6" />
 
-  {/* Copyright *
+  {/* Copyright */}
   <div className="text-sm text-center text-[#FFFBEE] font-[DM_Sans] mt-6">
     &copy; {new Date().getFullYear()} All rights reserved Dinuka Gunawardana
   </div>
 </footer>
 
-)}*/}
+)}
 
 
 
+    </main>
     
-    
-
+  );
+}
