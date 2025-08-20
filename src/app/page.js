@@ -201,7 +201,7 @@ useEffect(() => {
               muted
               loop
             >
-              <source src="/web cover new11.mp4" type="video/mp4" />
+              <source src="/Web Cover New11.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             {/* Gradient Overlay */}
