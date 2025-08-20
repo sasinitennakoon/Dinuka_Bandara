@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -21,7 +21,7 @@ export default function PhotographyPage() {
   const commercial = [
     '/photo/commercial11.jpg', '/photo/commercial4.jpg', '/photo/commercial8.jpg','/photo/commercial3.jpg',
     '/photo/commercial2.jpg', '/photo/commercial5.jpg', '/photo/commercial17.jpg',
-     '/photo/commercial13.jpg', '/photo/commercial9.jpg',
+    '/photo/commercial13.jpg', '/photo/commercial9.jpg',
     '/photo/commercial10.jpg', '/photo/commercial12.jpg', '/photo/commercial1.jpg',
     '/photo/commercial6.jpg', '/photo/commercial14.jpg', '/photo/commercial15.jpg',
     '/photo/commercial16.jpg', '/photo/commercial7.jpg'
@@ -31,227 +31,98 @@ export default function PhotographyPage() {
     '/photo/doc7.jpg','/photo/doc8.jpg','/photo/doc9.jpg','/photo/doc10.jpg','/photo/doc11.jpg','/photo/doc13.jpg','/photo/doc14.jpg'
   ];
 
-  // Open lightbox with clicked image
-  const openLightbox = (gallery, index) => {
+  const openLightbox = useCallback((gallery, index) => {
     setCurrentGallery(gallery);
     setCurrentImageIndex(index);
     setLightboxOpen(true);
     document.body.style.overflow = 'hidden';
-  };
+  }, []);
 
-  // Close lightbox
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
     document.body.style.overflow = 'auto';
-  };
+  }, []);
 
-  // Navigate between images
-  const navigateImages = (direction) => {
+  const navigateImages = useCallback((direction) => {
     if (direction === 'prev') {
-      setCurrentImageIndex(prev => 
-        prev === 0 ? currentGallery.length - 1 : prev - 1
-      );
+      setCurrentImageIndex(prev => prev === 0 ? currentGallery.length - 1 : prev - 1);
     } else {
-      setCurrentImageIndex(prev => 
-        prev === currentGallery.length - 1 ? 0 : prev + 1
-      );
+      setCurrentImageIndex(prev => prev === currentGallery.length - 1 ? 0 : prev + 1);
     }
-  };
+  }, [currentGallery]);
 
   useEffect(() => {
-  const handleKeyDown = (e) => {
-    if (!lightboxOpen) return;
+    const handleKeyDown = (e) => {
+      if (!lightboxOpen) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') navigateImages('prev');
+      else if (e.key === 'ArrowRight') navigateImages('next');
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen, closeLightbox, navigateImages]);
 
-    if (e.key === 'Escape') {
-      closeLightbox();
-    } else if (e.key === 'ArrowLeft') {
-      navigateImages('prev');
-    } else if (e.key === 'ArrowRight') {
-      navigateImages('next');
-    }
-  };
-
-  window.addEventListener('keydown', handleKeyDown);
-  return () => window.removeEventListener('keydown', handleKeyDown);
-}, [lightboxOpen, currentImageIndex, currentGallery, closeLightbox, navigateImages]);
-
-
-  // Navbar scroll visibility
   useEffect(() => {
     let lastScrollY = 0;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setNavVisible(currentScrollY < lastScrollY || currentScrollY < 100);
+      setShowScrollTop(currentScrollY > 300);
       lastScrollY = currentScrollY;
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3
-      }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.3 } }
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
-    }
+  const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
+
+  const imageVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8 } } };
+
+  const chipContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.3 } } };
+  const chipItem = {
+    hidden: { opacity: 0, y: 10, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 400, damping: 15, mass: 0.5 } },
+    hover: { scale: 1.05, transition: { duration: 0.15 } },
+    tap: { scale: 0.98, transition: { duration: 0.1 } }
   };
-
-  const imageVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.8 }
-    }
-  };
-
-
-// Add this right after your state declarations
-const chipContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3
-    }
-  }
-};
-
-const chipItem = {
-  hidden: { 
-    opacity: 0,
-    y: 10,
-    scale: 0.95
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 15,
-      mass: 0.5
-    }
-  },
-  hover: {
-    scale: 1.05,
-    transition: { duration: 0.15 }
-  },
-  tap: {
-    scale: 0.98,
-    transition: { duration: 0.1 }
-  }
-};
 
   return (
     <>
-      {/* Lightbox Modal */}
-{lightboxOpen && (
-  <div className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4">
-    {/* Pure blurred background */}
-    <div 
-      className="absolute inset-0 backdrop-blur-lg"
-      onClick={closeLightbox}
-    />
-    
-    {/* Close button */}
-    <button 
-      onClick={closeLightbox}
-      className="absolute top-6 right-6 z-60 bg-white text-black text-3xl w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 transition-all duration-200 shadow-lg"
-    >
-      ×
-    </button>
-    
-    {/* Main image container */}
-    <div className="relative z-50 max-w-[90vw] max-h-[70vh] mb-2">
-      <Image
-        src={currentGallery[currentImageIndex]}
-        alt={`Gallery image ${currentImageIndex + 1}`}
-        width={1200}
-        height={800}
-        className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-xl"
-      />
-      
-      {/* Navigation arrows */}
-      <button 
-        onClick={(e) => {
-          e.stopPropagation();
-          navigateImages('prev');
-        }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white text-black w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition shadow-lg border-2 border-dashed border-gray-400"
-      >
-        ←
-      </button>
-      
-      <button 
-        onClick={(e) => {
-          e.stopPropagation();
-          navigateImages('next');
-        }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white text-black w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition shadow-lg border-2 border-dashed border-gray-400"
-      >
-        →
-      </button>
-    </div>
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4">
+          <div className="absolute inset-0 backdrop-blur-lg cursor-pointer" onClick={closeLightbox} />
+          <button onClick={closeLightbox} className="absolute top-6 right-6 z-50 bg-white text-black text-3xl w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 transition-all duration-200 shadow-lg">×</button>
+          <div className="relative z-50 max-w-[90vw] max-h-[70vh] mb-2">
+            <Image src={currentGallery[currentImageIndex]} alt={`Gallery ${currentImageIndex + 1}`} width={1200} height={800} className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-xl" />
+            <button onClick={(e) => { e.stopPropagation(); navigateImages('prev'); }} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white text-black w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition shadow-lg border-2 border-dashed border-gray-400">←</button>
+            <button onClick={(e) => { e.stopPropagation(); navigateImages('next'); }} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white text-black w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition shadow-lg border-2 border-dashed border-gray-400">→</button>
+          </div>
 
-    {/* Compact preview queue with proper image fitting */}
-    <div className="relative z-50 flex items-center justify-center h-20 w-full max-w-3xl overflow-hidden">
-      <div className="flex items-center space-x-1 h-full">
-        {currentGallery.map((img, index) => {
-          const distance = index - currentImageIndex;
-          const isCurrent = index === currentImageIndex;
-          
-          // Show only nearby images (2 before, current, 2 after)
-          if (Math.abs(distance) > 2) return null;
-
-          return (
-            <div
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`relative transition-all duration-200 cursor-pointer ${
-                isCurrent 
-                  ? 'h-16 w-[64px] opacity-100' 
-                  : 'h-12 w-[48px] opacity-70 hover:opacity-90'
-              } ${isCurrent ? 'ring-2 ring-white' : ''}`}
-            >
-              <Image
-                src={img}
-                alt={`Preview ${index + 1}`}
-                fill
-                className="object-contain rounded-sm"
-                style={{
-                  objectPosition: 'center',
-                }}
-              />
+          {/* Preview queue */}
+          <div className="relative z-50 flex items-center justify-center h-20 w-full max-w-3xl overflow-hidden">
+            <div className="flex items-center space-x-1 h-full">
+              {currentGallery.map((img, index) => {
+                const distance = index - currentImageIndex;
+                if (Math.abs(distance) > 2) return null;
+                const isCurrent = index === currentImageIndex;
+                return (
+                  <div key={index} onClick={() => setCurrentImageIndex(index)} className={`relative cursor-pointer transition-all duration-200 ${isCurrent ? 'h-16 w-[64px] opacity-100 ring-2 ring-white' : 'h-12 w-[48px] opacity-70 hover:opacity-90'}`}>
+                    <div className="relative h-full w-full">
+                      <Image src={img} alt={`Preview ${index + 1}`} fill className="object-contain rounded-sm" style={{ objectPosition: 'center' }} />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-    </div>
-  </div>
-)}
+          </div>
+        </div>
+      )}
 
        {/* Navbar - hidden when lightbox is open */}
 {!lightboxOpen && (
