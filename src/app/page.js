@@ -132,7 +132,7 @@ export default function Home() {
         }, 100); // delay helps ensure page is rendered
       }
     }
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
 
 
