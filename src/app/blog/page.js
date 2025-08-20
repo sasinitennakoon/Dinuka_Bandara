@@ -217,7 +217,7 @@ export default function BlogPage() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-lg md:text-2xl text-gray-700 font-[DM_Sans]"
           >
-            A collection of ideas, creative journeys, and lessons I&apos;'ve learned along the way.
+            A collection of ideas, creative journeys, and lessons I&apos;ve learned along the way.
           </motion.p>
         </motion.div>
 
