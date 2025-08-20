@@ -1,15 +1,11 @@
-
 'use client';
 import { useEffect, useState, useRef } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { motion,useAnimation, useInView } from 'framer-motion';
+import { motion, useAnimation, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import AutoScrollingClients from '../components/AutoScrollingClients.js';
 import BlogSection from '../components/blogSection.js';
 import Counter from '../components/Counter.js';
-
-
 
 export default function Home() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -18,124 +14,97 @@ export default function Home() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [navVisible, setNavVisible] = useState(true);
   const navRef = useRef(null);
-  const [pathname, setPathname] = useState('');
-  const [searchParams, setSearchParams] = useState(null);
   const aboutRef = useRef(null);
   const isInView = useInView(aboutRef, { margin: '-100px' });
   const imageControls = useAnimation();
   const textControls = useAnimation();
+
   const containerVariants = {
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: 0.2
-          }
-        }
-      };
-
-      const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
-      };
-  
-      const services = [
-  {
-    title: 'PHOTOGRAPHY',
-    href: '/photography',
-    img: '/services/photography.png',
-    desc: 'Photography captures moments, telling stories through images, preserving memories, and showcasing perspectives with creativity and technical skills.',
-    delay: 0.1,
-  },
-  {
-    title: 'VIDEOGRAPHY',
-    href: '/videography',
-    img: '/services/video.png',
-    desc: 'Videography captures moving images, creating visual narratives, documenting events, and conveying emotions through dynamic and creative storytelling.',
-    delay: 0.2,
-  },
-  {
-    title: 'EDITING',
-    href: '/editing',
-    img: '/services/editing2.png',
-    desc: 'Editing refines and arranges content, enhancing storytelling by cutting, adjusting, and polishing visuals or text for clarity and impact.',
-    delay: 0.3,
-  },
-  {
-    title: 'GRAPHIC DESIGN',
-    href: '/design',
-    img: '/services/graphic.png',
-    desc: 'Graphic design combines visuals and text, crafting appealing and effective communication through typography, imagery, and layout to convey messages.',
-    delay: 0.4,
-  },
-];
-
-useEffect(() => {
-  setPathname(window.location.pathname); // or usePathname() inside useEffect if needed
-  setSearchParams(new URLSearchParams(window.location.search));
-}, []);
-
-  useEffect(() => {
-  const hasVisited = sessionStorage.getItem('hasVisited');
-  if (hasVisited) {
-    setShowWelcome(false); // Skip splash if visited
-    return;
-  }
-
-  sessionStorage.setItem('hasVisited', 'true');
-
-  const fadeInTimer = setTimeout(() => {
-    setFadeClass('opacity-100');
-  }, 100);
-
-  const fadeOutTimer = setTimeout(() => {
-    setFadeClass('opacity-0');
-  }, 2500);
-
-  const hideTimer = setTimeout(() => {
-    setShowWelcome(false);
-  }, 3300);
-
-  return () => {
-    clearTimeout(fadeInTimer);
-    clearTimeout(fadeOutTimer);
-    clearTimeout(hideTimer);
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.2 } },
   };
-}, []);
 
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  };
 
+  const services = [
+    {
+      title: 'PHOTOGRAPHY',
+      href: '/photography',
+      img: '/services/photography.png',
+      desc: 'Photography captures moments, telling stories through images...',
+      delay: 0.1,
+    },
+    {
+      title: 'VIDEOGRAPHY',
+      href: '/videography',
+      img: '/services/video.png',
+      desc: 'Videography captures moving images, creating visual narratives...',
+      delay: 0.2,
+    },
+    {
+      title: 'EDITING',
+      href: '/editing',
+      img: '/services/editing2.png',
+      desc: 'Editing refines and arranges content, enhancing storytelling...',
+      delay: 0.3,
+    },
+    {
+      title: 'GRAPHIC DESIGN',
+      href: '/design',
+      img: '/services/graphic.png',
+      desc: 'Graphic design combines visuals and text, crafting appealing communication...',
+      delay: 0.4,
+    },
+  ];
+
+  // Splash screen logic
   useEffect(() => {
-    if (showWelcome) return; // Don't run during splash screen
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    if (hasVisited) {
+      setShowWelcome(false);
+      return;
+    }
+    sessionStorage.setItem('hasVisited', 'true');
 
+    const fadeInTimer = setTimeout(() => setFadeClass('opacity-100'), 100);
+    const fadeOutTimer = setTimeout(() => setFadeClass('opacity-0'), 2500);
+    const hideTimer = setTimeout(() => setShowWelcome(false), 3300);
+
+    return () => {
+      clearTimeout(fadeInTimer);
+      clearTimeout(fadeOutTimer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
+  // Scroll logic for navbar visibility
+  useEffect(() => {
+    if (showWelcome) return;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down
-        setNavVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up
-        setNavVisible(true);
-      }
-
+      if (currentScrollY > lastScrollY && currentScrollY > 100) setNavVisible(false);
+      else if (currentScrollY < lastScrollY) setNavVisible(true);
       setLastScrollY(currentScrollY);
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, showWelcome]);
 
-  
+  // Scroll to hash section safely
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 100); // delay helps ensure page is rendered
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash) {
+        const element = document.querySelector(hash);
+        if (element) {
+          setTimeout(() => element.scrollIntoView({ behavior: 'smooth' }), 100);
+        }
       }
     }
-  }, [pathname]);
+  }, []);
 
 
 
