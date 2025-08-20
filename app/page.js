@@ -2,22 +2,8 @@
 
 import React from "react";
 
-export default function HomePage() {
-  return (
-    <div style={{ backgroundColor: 'white', color: 'black', minHeight: '100vh', padding: '2rem' }}>
-      <h1>Hello Dinuka - Debug Mode</h1>
 
-      {/* Uncomment components one by one to identify the issue */}
-      {/* <Hero /> */}
-      {/* <Portfolio /> */}
-      {/* <OtherComponent /> */}
-
-      <p>If you see this, the page is rendering correctly.</p>
-    </div>
-  )
-}
-
-{/*import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -539,11 +525,11 @@ useEffect(() => {
   </div>
 </footer>
 
-)}
+)}*/}
 
 
 
     </main>
     
   );
-*/}
+}
