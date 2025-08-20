@@ -18,6 +18,7 @@ export default function Home() {
   const isInView = useInView(aboutRef, { margin: '-100px' });
   const imageControls = useAnimation();
   const textControls = useAnimation();
+  
 
   const containerVariants = {
     hidden: {},
@@ -81,17 +82,18 @@ export default function Home() {
   }, []);
 
   // Scroll logic for navbar visibility
-  const lastScrollYRef = useRef(0);
+// Scroll logic for navbar visibility
+const lastScrollYRef = useRef(0);
 
 useEffect(() => {
   if (showWelcome) return;
 
-  const handleScroll = () => {
+  const handleScroll = () => {  // ← Added opening brace
     const currentScrollY = window.scrollY;
     if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) setNavVisible(false);
     else if (currentScrollY < lastScrollYRef.current) setNavVisible(true);
     lastScrollYRef.current = currentScrollY;
-  };
+  };  // ← Added closing brace and semicolon
 
   window.addEventListener('scroll', handleScroll, { passive: true });
   return () => window.removeEventListener('scroll', handleScroll);
