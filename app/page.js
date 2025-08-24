@@ -63,23 +63,30 @@ export default function Home() {
 
   // Splash screen logic
   useEffect(() => {
-    const hasVisited = sessionStorage.getItem('hasVisited');
+  let fadeInTimer, fadeOutTimer, hideTimer;
+
+  if (typeof window !== "undefined") {
+    const hasVisited = sessionStorage.getItem("hasVisited");
+
     if (hasVisited) {
+      // already visited → skip splash
       setShowWelcome(false);
       return;
     }
-    sessionStorage.setItem('hasVisited', 'true');
 
-    const fadeInTimer = setTimeout(() => setFadeClass('opacity-100'), 100);
-    const fadeOutTimer = setTimeout(() => setFadeClass('opacity-0'), 2500);
-    const hideTimer = setTimeout(() => setShowWelcome(false), 3300);
+    sessionStorage.setItem("hasVisited", "true");
 
-    return () => {
-      clearTimeout(fadeInTimer);
-      clearTimeout(fadeOutTimer);
-      clearTimeout(hideTimer);
-    };
-  }, []);
+    fadeInTimer = setTimeout(() => setFadeClass("opacity-100"), 100);
+    fadeOutTimer = setTimeout(() => setFadeClass("opacity-0"), 2500);
+    hideTimer = setTimeout(() => setShowWelcome(false), 3300);
+  }
+
+  return () => {
+    clearTimeout(fadeInTimer);
+    clearTimeout(fadeOutTimer);
+    clearTimeout(hideTimer);
+  };
+}, []);
 
   // Scroll logic for navbar visibility
 // Scroll logic for navbar visibility
