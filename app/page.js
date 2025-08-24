@@ -61,32 +61,9 @@ export default function Home() {
     },
   ];
 
-  // Splash screen logic
-  useEffect(() => {
-  let fadeInTimer, fadeOutTimer, hideTimer;
+  
 
-  if (typeof window !== "undefined") {
-    const hasVisited = sessionStorage.getItem("hasVisited");
-
-    if (hasVisited) {
-      // already visited → skip splash
-      setShowWelcome(false);
-      return;
-    }
-
-    sessionStorage.setItem("hasVisited", "true");
-
-    fadeInTimer = setTimeout(() => setFadeClass("opacity-100"), 100);
-    fadeOutTimer = setTimeout(() => setFadeClass("opacity-0"), 2500);
-    hideTimer = setTimeout(() => setShowWelcome(false), 3300);
-  }
-
-  return () => {
-    clearTimeout(fadeInTimer);
-    clearTimeout(fadeOutTimer);
-    clearTimeout(hideTimer);
-  };
-}, []);
+ 
 
   // Scroll logic for navbar visibility
 // Scroll logic for navbar visibility
@@ -124,20 +101,8 @@ useEffect(() => {
   return (
     <main className="relative min-h-screen text-white">
       {/* Splash / Welcome Screen */}
-      {showWelcome ? (
-        <div
-          className={`fixed inset-0 flex items-center justify-center bg-gradient-to-b from-[#0D1321] via-[#1D2A41] to-[#263B5E] z-50 transition-opacity duration-800 ease-in-out ${fadeClass}`}
-        >
-          <Image
-            src="/signature-dinuka.png"
-            alt="Client Logo"
-            width={500}
-            height={500}
-            className={`w-full h-auto max-w-[80%] md:max-w-[500px] transition-opacity duration-800 ease-in-out ${fadeClass}`}
-          />
-        </div>
-      ) : (
-        <>
+      
+        
           {/* Navbar */}
         <nav
             ref={navRef}
@@ -453,8 +418,8 @@ useEffect(() => {
             <BlogSection />
           </section>
 
-        </>
-      )}
+        
+    
 
 
         {!showWelcome && (
